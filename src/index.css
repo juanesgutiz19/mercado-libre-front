@@ -7,8 +7,6 @@
     width: 10rem;
 }
 
-
-
 .contenedoritem{
     width: 70%;
     max-width: 1000px;
@@ -18,6 +16,12 @@
 .title-item-screen{
     font-size:30px;
 }
+
+
+.item-lista{
+    background-color: #f7f6f4;
+}
+
 
 .incorrecto {
     text-decoration:line-through;
@@ -44,6 +48,47 @@ span{
 
 .barra-busqueda {
     width: 70%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.paginationBttns {
+    width: 80%;
+    height: 40px;
+    list-style: none;
+    display:flex;
+    justify-content: center;
+}
+
+.paginationBttns a {
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    border: 1px solid #2d3277;
+    color: #2d3277;
+    cursor:pointer;
+}
+
+.paginationBttns a:hover {
+    color: white;
+    background-color: #2d3277;
+}
+
+.paginationActive a {
+    color: white;
+    background-color: #2d3277;
+}
+
+.paginator {
+    width: 60%;
+    max-width: 1000px;
+    margin: 20px auto;
+    position: absolute;
+    left: 25%;
+}
+
+.contenedor-busqueda {
+    width: 80%;
     max-width: 1000px;
     margin: 20px auto;
 }

@@ -46,59 +46,34 @@ export const ItemCard = (props) => {
 
 
     return (
-        <>
-
-        {/* <div>
-            <div className="card ms-3 animate__animated animate__fadeIn" style={ { maxWidth: 540 } }>
+        <>  
+            {!loading?<div className="card ms-3" style={ { maxWidth: 540 } }>
                 <div className="row no-gutters">
-
+                    <div className="col-md-4">
+                        {resultItems? <img src={resultItems? resultItems.pictures[0].secure_url : ''} className="card-img" alt={resultItems? resultItems.title : 'No hay imagen' } />: null}
+                    </div>
                     <div className="col-md-8">
                         
                         <div className="card-body">
+                            { resultItems? <h5 className="card-title"> { resultItems.title } </h5> : null }
+                            
+                            
+                            { resultItems?<p className="card-text"> { returnCOP(resultItems.price)} </p> : null }
 
+                            
+                            <p className="card-text">
+                                <small className="text-muted"> { sellerName } </small>
+                            </p>
 
-                            { resultItems? <h1>{resultItems.title}</h1> : null }
-                            { resultItems? <h1>{resultItems.pictures[0].secure_url}</h1> : null }
-                            { resultItems? <h1>{resultItems.price}</h1> : null }
-                            <p>{sellerName}</p>     
                             {<Link to={ `./item/${ id }` }>
-                                ¡Visualizar producto!
+                                    Visualizar producto
                             </Link> }
 
                         </div>
 
                     </div>
-             </div>
-            </div>
-        </div> */}
-
-
-        <div className="card ms-3" style={ { maxWidth: 540 } }>
-            <div className="row no-gutters">
-                <div className="col-md-4">
-                    <img src={resultItems? resultItems.pictures[0].secure_url : ''} className="card-img" alt={resultItems? resultItems.title : 'No hay imagen' } />
                 </div>
-                <div className="col-md-8">
-                    
-                    <div className="card-body">
-                        { resultItems? <h5 className="card-title"> { resultItems.title } </h5> : null }
-                        
-                        
-                        { resultItems?<p className="card-text"> { returnCOP(resultItems.price)} </p> : null }
-
-                        <p className="card-text">
-                            <small className="text-muted"> { sellerName } </small>
-                        </p>
-
-                        {<Link to={ `./item/${ id }` }>
-                                ¡Visualizar producto!
-                        </Link> }
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
+            </div>: <div></div>}
         </ >
     )
 }

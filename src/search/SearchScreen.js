@@ -1,11 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from '../hooks/useForm';
 import { ItemCard } from '../items/ItemCard';
+import ReactPaginate from 'react-paginate';
 
 export const SeachScreen = () => {
 
     const [resultList, setResulList] = useState([]);
-    
+    const [pageNumber, setPageNumber] = useState(0);
+    const itemsPerPage = 50;
+    const pagesVisited = pageNumber * itemsPerPage;
+    const [length, setLength] = useState(-1);
+    let pageCount = undefined;
+
+    const getData = () => {
+        fetch( `https://api.mercadolibre.com/sites/MCO/search?q=${searchText}&offset=${pagesVisited}&limit=${itemsPerPage}` )
+            .then( resp => resp.json() )
+            .then(data => {
+                setResulList(data.results);
+                setLength(data.paging.total);
+                pageCount = Math.ceil(length/itemsPerPage);
+                if(pageNumber !== 0){
+                    displayItems();
+                }
+            })
+            .catch(
+                (error) => {
+                    console.log('Error inesperado', error);
+                }
+            )  
+    }
+
+    const displayItems = () => {
+        if(resultList.length > 0){
+            return(resultList.map(item => <ItemCard key={item.id} info={item} > </ItemCard> ));
+        }else {
+            return null;
+        }
+    }
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    }
+
     const [formValues, handleInputChange ] = useForm({
         searchText: ''
     });
@@ -14,22 +50,15 @@ export const SeachScreen = () => {
     
     const handleSearch = (e) => {
         e.preventDefault();
-        console.log(searchText);
-        getSellerName(searchText);
+        getData();
     }
 
-    function getSellerName(id){
-        fetch( `https://api.mercadolibre.com/sites/MCO/search?q=${searchText}&offset=0&limit=50` )
-            .then( resp => resp.json() )
-            .then(data => {
-                setResulList(data.results);
-            })
-            .catch(
-                (error) => {
-
-                }
-            )
-    }
+    useEffect(() => {
+        // if(pageNumber > 0){
+        //     getData();
+        // }
+        getData();
+    }, [pageNumber]);
 
     return (
         <div>
@@ -59,13 +88,27 @@ export const SeachScreen = () => {
 
                 <div className="col-12 item-lista">
                     <hr />
-                    <div className="card-columns">
-                        {
-                            resultList.length > 0
-                            ? resultList.map(item => <ItemCard key={item.id} info={item} > </ItemCard> )
-                            : null           
-                        }
+                    <div className="contenedor-busqueda">
+                        <div className="card-columns">
+                            {displayItems()}
+                        </div>
                     </div>
+                    
+                    {length && resultList.length > 0? 
+                    <div className="paginator">
+                        <ReactPaginate
+                        previousLabel={"Previous"}
+                        nextLabel={"Next"}
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                        containerClassName={"paginationBttns"}
+                        previousLinkClassName={"previousBttns"}
+                        nextLinkClassName={"nextBttn"}
+                        disabledClassName={"paginationDisabled"}
+                        activeClassName={"paginationActive"}
+                    />
+                    </div>
+                    : null}
                 </div>
             </div>
         </div>

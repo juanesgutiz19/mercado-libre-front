@@ -8,8 +8,7 @@ export const Navbar = () => {
                 className="navbar-brand" 
                 to="/"
             >
-                    <img src="./assets/images/logo-mercado-libre.png" className="logo" alt="mercadolibre" />
-                
+                    <img src="/assets/images/logo-mercado-libre.png" className="logo" alt="mercadolibre" />
             </Link>
         </nav>
     )
