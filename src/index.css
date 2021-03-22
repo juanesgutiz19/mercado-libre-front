@@ -1,4 +1,49 @@
 
 .mc {
-    background-color: #ffe600
+    background-color: #ffe600;
+}
+
+.logo {
+    width: 10rem;
+}
+
+
+
+.contenedoritem{
+    width: 70%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.title-item-screen{
+    font-size:30px;
+}
+
+.incorrecto {
+    text-decoration:line-through;
+    color: rgb(145, 144, 144);
+    font-size:20px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.precio-item-screen {
+    font-size:30px;
+    display:inline;
+    margin-right: 20px;
+}
+
+.discount{
+    display:inline;
+    color: rgb(44, 133, 34);
+}
+
+span{
+    color: #2d3277;
+}
+
+.barra-busqueda {
+    width: 70%;
+    max-width: 1000px;
+    margin: 20px auto;
 }
