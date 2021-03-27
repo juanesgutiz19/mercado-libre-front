@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import queryString from 'query-string';
+
 import { useForm } from '../hooks/useForm';
 import { ItemCard } from '../items/ItemCard';
 import ReactPaginate from 'react-paginate';
+import { useLocation } from 'react-router';
 
-export const SeachScreen = () => {
+export const SeachScreen = ({ history }) => {
+
+
+    const location = useLocation();
+    const { q = ''} = queryString.parse(location.search);
 
     const [resultList, setResulList] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
@@ -43,13 +50,14 @@ export const SeachScreen = () => {
     }
 
     const [formValues, handleInputChange ] = useForm({
-        searchText: ''
+        searchText: q
     });
 
     const { searchText } = formValues;
     
     const handleSearch = (e) => {
         e.preventDefault();
+        history.push(`?q=${searchText}`);
         getData();
     }
 
